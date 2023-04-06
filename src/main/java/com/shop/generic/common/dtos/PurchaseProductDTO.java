@@ -1,4 +1,4 @@
-package com.shop.generic.common.valueobjects;
+package com.shop.generic.common.dtos;
 
 /**
  * A VO representing a request to purchase a product
@@ -6,6 +6,6 @@ package com.shop.generic.common.valueobjects;
  * @param productId the ID of the product
  * @param quantity  the quantity of the product to be purchased
  */
-public record PurchaseProductVO(int productId, int quantity) {
+public record PurchaseProductDTO(int productId, int quantity) {
 
 }
