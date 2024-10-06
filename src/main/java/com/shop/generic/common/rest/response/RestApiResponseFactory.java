@@ -1,9 +1,7 @@
 package com.shop.generic.common.rest.response;
 
 import java.time.LocalDateTime;
-import org.springframework.stereotype.Component;
 
-@Component
 public class RestApiResponseFactory {
 
     public <T> RestApiResponse<T> createResponse(final T data, final String message,

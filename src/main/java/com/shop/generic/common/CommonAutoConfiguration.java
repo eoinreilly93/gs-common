@@ -1,10 +1,14 @@
 package com.shop.generic.common;
 
-import org.springframework.context.annotation.ComponentScan;
+import com.shop.generic.common.rest.response.RestApiResponseFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = "com.shop.generic.common")
 public class CommonAutoConfiguration {
 
+    @Bean
+    public RestApiResponseFactory restApiResponseFactory() {
+        return new RestApiResponseFactory();
+    }
 }
