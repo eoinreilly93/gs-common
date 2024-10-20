@@ -21,6 +21,9 @@ public class CommonKafkaConsumerAutoConfiguration {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
+    @Value("${spring.kafka.consumer.properties.[spring.json.trusted.packages]}")
+    private String trustedPackages;
+
     @Bean
     public ConsumerFactory<String, ?> consumerFactory() {
         log.info("Creating generic Kafka consumer factory");
@@ -32,7 +35,8 @@ public class CommonKafkaConsumerAutoConfiguration {
         return Map.of(
                 BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
                 KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-                VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class
+                VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class,
+                JsonDeserializer.TRUSTED_PACKAGES, trustedPackages
         );
     }
 }

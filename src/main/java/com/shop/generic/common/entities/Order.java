@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,6 +51,14 @@ public class Order {
     @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    @NonNull
+    @Column(name = "CITY", nullable = false)
+    private String city;
+
+    @NonNull
+    @Column(name = "CREATION_DATE", nullable = false)
+    private LocalDateTime creationDate;
 
     //TODO: Add additional fields such as name, address etc.
 

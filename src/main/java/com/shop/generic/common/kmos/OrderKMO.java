@@ -14,10 +14,10 @@ import java.util.UUID;
  * @param orderStatus the status of the order
  */
 public record OrderKMO(UUID orderId, BigDecimal price, String productIds,
-                       OrderStatus orderStatus) {
+                       OrderStatus orderStatus, String city) {
 
     public OrderKMO(final Order order) {
         this(order.getOrderId(), order.getPrice(), order.getProductIds(),
-                order.getStatus());
+                order.getStatus(), order.getCity());
     }
 }
