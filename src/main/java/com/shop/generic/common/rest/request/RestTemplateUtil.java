@@ -16,6 +16,12 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Utility class for handling all REST requests
+ * <p>
+ * Logging is handled by the
+ * {@link com.shop.generic.common.rest.interceptors.MicroserviceRestTemplateInterceptor}
+ */
 @Slf4j
 public class RestTemplateUtil {
 
@@ -28,7 +34,7 @@ public class RestTemplateUtil {
     public <T> RestApiResponse<T> postForObject(final String url, final Object data,
             final ParameterizedTypeReference<RestApiResponse<T>> typeReference) throws Exception {
         try {
-            log.info("Sending POST request {}", url);
+//            log.info("Sending POST request {}", url);
             final HttpEntity<?> requestEntity = new HttpEntity<>(data);
             final ResponseEntity<RestApiResponse<T>> responseEntity = restTemplate.exchange(url,
                     HttpMethod.POST, requestEntity, typeReference);
@@ -46,7 +52,7 @@ public class RestTemplateUtil {
     public <T> RestApiResponse<T> getForObject(final String url,
             final ParameterizedTypeReference<RestApiResponse<T>> typeReference) throws Exception {
         try {
-            log.info("Sending GET request {}", url);
+//            log.info("Sending GET request {}", url);
             final ResponseEntity<RestApiResponse<T>> responseEntity = restTemplate.exchange(url,
                     HttpMethod.GET, null, typeReference);
             return responseEntity.getBody();
@@ -63,7 +69,7 @@ public class RestTemplateUtil {
     public <T> RestApiResponse<T> putForObject(final String url, final Object data,
             final ParameterizedTypeReference<RestApiResponse<T>> typeReference) throws Exception {
         try {
-            log.info("Sending PUT request {}", url);
+//            log.info("Sending PUT request {}", url);
             final HttpEntity<?> requestEntity = new HttpEntity<>(data);
             final ResponseEntity<RestApiResponse<T>> responseEntity = restTemplate.exchange(url,
                     HttpMethod.PUT, requestEntity, typeReference);

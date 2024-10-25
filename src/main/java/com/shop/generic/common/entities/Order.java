@@ -60,6 +60,6 @@ public class Order {
     @Column(name = "CREATION_DATE", nullable = false)
     private LocalDateTime creationDate;
 
-    //TODO: Add additional fields such as name, address etc.
+    //TODO: Add additional fields such as last_updated, name, address etc.
 
 }

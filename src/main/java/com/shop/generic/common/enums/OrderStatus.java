@@ -4,5 +4,8 @@ public enum OrderStatus {
 
     CREATED,
     SHIPPED,
-    DELIVERED
+    DELIVERED,
+    PENDING_DELIVERY,
+    DELIVERY_IN_PROGRESS,
+    DELIVERY_FAILED
 }
