@@ -37,9 +37,17 @@ public class ExceptionHandlerControllerAdvice {
     }
 
     @ExceptionHandler(ServiceException.class)
-    public ResponseEntity<RestApiResponse> handleServiceUnavailableException(
+    public ResponseEntity<RestApiResponse> handleServiceException(
             final ServiceException e) {
-        log.error("Responding with internal server error due to service being unavailable", e);
+        log.error("Responding with internal server error due an error within the service", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(restApiResponseFactory.createErrorResponse(e.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<RestApiResponse> handleGenericException(
+            final ServiceException e) {
+        log.error("Something catastrophic has happened", e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(restApiResponseFactory.createErrorResponse(e.getMessage()));
     }

@@ -1,3 +1,4 @@
 com.shop.generic.common.CommonAutoConfiguration
 com.shop.generic.common.CommonKafkaConsumerAutoConfiguration
 com.shop.generic.common.CommonKafkaProducerAutoConfiguration
+com.shop.generic.common.CommonSecurityAutoConfiguration

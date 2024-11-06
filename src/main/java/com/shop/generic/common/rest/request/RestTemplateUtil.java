@@ -86,6 +86,7 @@ public class RestTemplateUtil {
 
     private Exception getExceptionForClientError(final HttpClientErrorException e)
             throws ValidationException, JSONException {
+
         final JSONObject jsonObject = new JSONObject(e.getResponseBodyAsString());
         final String errorMessage = (String) jsonObject.get("error");
         final HttpStatusCode statusCode = e.getStatusCode();
