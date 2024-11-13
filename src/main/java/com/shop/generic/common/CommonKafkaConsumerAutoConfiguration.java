@@ -1,6 +1,8 @@
 package com.shop.generic.common;
 
+import static org.apache.kafka.clients.consumer.ConsumerConfig.AUTO_OFFSET_RESET_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG;
+import static org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG;
 
@@ -24,6 +26,13 @@ public class CommonKafkaConsumerAutoConfiguration {
     @Value("${spring.kafka.consumer.properties.[spring.json.trusted.packages]}")
     private String trustedPackages;
 
+    @Value("${spring.kafka.consumer.group-id}")
+    private String groupId;
+
+    //Default value is 'latest' if not specified in property files
+    @Value("${spring.kafka.consumer.auto-offset-reset:latest}")
+    private String consumerAutoOffsetReset;
+
     @Bean
     public ConsumerFactory<String, ?> consumerFactory() {
         log.info("Creating generic Kafka consumer factory");
@@ -36,7 +45,9 @@ public class CommonKafkaConsumerAutoConfiguration {
                 BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
                 KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
                 VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class,
-                JsonDeserializer.TRUSTED_PACKAGES, trustedPackages
+                JsonDeserializer.TRUSTED_PACKAGES, trustedPackages,
+                AUTO_OFFSET_RESET_CONFIG, consumerAutoOffsetReset,
+                GROUP_ID_CONFIG, groupId
         );
     }
 }
