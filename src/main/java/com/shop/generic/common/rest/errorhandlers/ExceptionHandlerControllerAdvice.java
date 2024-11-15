@@ -46,7 +46,7 @@ public class ExceptionHandlerControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<RestApiResponse> handleGenericException(
-            final ServiceException e) {
+            final Exception e) {
         log.error("Something catastrophic has happened", e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(restApiResponseFactory.createErrorResponse(e.getMessage()));
