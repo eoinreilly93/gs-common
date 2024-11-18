@@ -75,8 +75,8 @@ public class Order {
     private LocalDateTime lastUpdated;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "order_id", nullable = false)
     @OrderBy("lastUpdated")
     private List<OrderAudit> auditItems = new ArrayList<>();
 

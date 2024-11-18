@@ -44,7 +44,7 @@ public class OrderAudit {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private Order order;
 
 }
