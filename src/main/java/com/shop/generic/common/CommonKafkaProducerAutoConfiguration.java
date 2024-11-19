@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 
 @Configuration
 @Slf4j
@@ -22,6 +21,9 @@ public class CommonKafkaProducerAutoConfiguration {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
+    @Value("${spring.kafka.producer.value-serializer}")
+    private String valueSerializer;
+
     @Bean
     public ProducerFactory<String, ?> producerFactory() {
         log.info("Creating generic Kafka producer factory");
@@ -29,7 +31,7 @@ public class CommonKafkaProducerAutoConfiguration {
                 Map.of(
                         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
                         KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
-                        VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class
+                        VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer
                 )
         );
     }
