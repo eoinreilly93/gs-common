@@ -3,6 +3,8 @@ package com.shop.generic.common;
 import com.shop.generic.common.auth.MicroservicRestTemplateAuthInterceptor;
 import com.shop.generic.common.auth.MicroserviceAuthorisationService;
 import com.shop.generic.common.auth.ServiceContext;
+import com.shop.generic.common.clock.ApplicationClock;
+import com.shop.generic.common.clock.GsClock;
 import com.shop.generic.common.rest.errorhandlers.ExceptionHandlerControllerAdvice;
 import com.shop.generic.common.rest.interceptors.MicroserviceRestTemplateInterceptor;
 import com.shop.generic.common.rest.request.RestTemplateUtil;
@@ -20,17 +22,8 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-//@EnableConfigurationProperties(CommonProperties.class)
 @Slf4j
 public class CommonAutoConfiguration {
-
-//    private final CommonProperties commonProperties;
-//    private final AuthProperties authProperties;
-//
-//    public CommonAutoConfiguration(final CommonProperties commonProperties) {
-//        this.commonProperties = commonProperties;
-//        this.authProperties = commonProperties.getAuth();
-//    }
 
     @PostConstruct
     public void init() {
@@ -43,8 +36,13 @@ public class CommonAutoConfiguration {
     }
 
     @Bean
+    public GsClock clock() {
+        return new ApplicationClock();
+    }
+
+    @Bean
     public RestApiResponseFactory restApiResponseFactory() {
-        return new RestApiResponseFactory();
+        return new RestApiResponseFactory(clock());
     }
 
     @Bean

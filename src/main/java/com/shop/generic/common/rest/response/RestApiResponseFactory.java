@@ -1,8 +1,15 @@
 package com.shop.generic.common.rest.response;
 
+import com.shop.generic.common.clock.GsClock;
 import java.time.LocalDateTime;
 
 public class RestApiResponseFactory {
+
+    private final GsClock clock;
+
+    public RestApiResponseFactory(final GsClock clock) {
+        this.clock = clock;
+    }
 
     public <T> RestApiResponse<T> createResponse(final T data, final String message,
             final String error) {
@@ -10,8 +17,7 @@ public class RestApiResponseFactory {
                 .message(message)
                 .error(error)
                 .result(data)
-                //TODO: Add clock here
-                .timestamp(LocalDateTime.now())
+                .timestamp(LocalDateTime.now(this.clock.getClock()))
                 .build();
     }
 
