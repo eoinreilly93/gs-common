@@ -38,12 +38,12 @@ public class RequestHeaderAuthenticationFilter extends OncePerRequestFilter {
             final FilterChain chain) throws ServletException, IOException {
         log.debug("Processing request authentication...");
         final String encryptedToken = httpServletRequest.getHeader("Bearer-Token");
-        log.info("Received encrypted bearer token: {}", encryptedToken);
+        log.debug("Received encrypted bearer token: {}", encryptedToken);
         String decryptedToken = "";
         //Decrypt the token
         log.debug("Decrypting the JWT token");
         decryptedToken = jwtTokenEncryptionService.decryptBearerToken(encryptedToken);
-        log.info("Decrypted the JWT token: {}", decryptedToken);
+        log.debug("Decrypted the JWT token: {}", decryptedToken);
         final boolean isRequestFromIgnoredUrls = Arrays.stream(ignoreUrls)
                 .anyMatch(url -> new AntPathRequestMatcher(url).matches(httpServletRequest));
         if (isRequestFromIgnoredUrls) {

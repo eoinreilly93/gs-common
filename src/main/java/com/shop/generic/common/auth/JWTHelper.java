@@ -41,20 +41,19 @@ public class JWTHelper {
                 .setSigningKey(getEncoder().encodeToString(jwtTokenSecret.getBytes())).build()
                 .parseClaimsJws(token).getPayload();
         final String result = (String) claims.get("context");
-        log.info("Encoded (Base64): {} ", result);
+        log.debug("Encoded (Base64): {} ", result);
         final String payload = deCompress(result);
-        log.info("JWT payload {}", payload);
+        log.debug("JWT payload {}", payload);
         return objectMapper.readValue(payload, Permissions.class);
     }
 
     private String deCompress(final String data) throws IOException {
         final byte[] decode = Base64.getDecoder().decode(data);
-        log.info("Decoded (Base64): {} ", Arrays.toString(decode));
+        log.debug("Decoded (Base64): {} ", Arrays.toString(decode));
         final ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try (final OutputStream dos = new InflaterOutputStream(bos)) {
             dos.write(decode);
         }
-        log.info("Decompressed bytes: {}", Arrays.toString(bos.toByteArray()));
         return bos.toString(UTF_8);
     }
 

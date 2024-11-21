@@ -41,6 +41,7 @@ public class MicroservicRestTemplateAuthInterceptor implements ClientHttpRequest
 
         final ClientHttpResponse response = execution.execute(request, body);
         final long finish = System.currentTimeMillis();
+        //TODO: Consider logging the body here?
         log.info("Response received with {} status in {}ms", response.getStatusCode(),
                 finish - start);
         return response;
