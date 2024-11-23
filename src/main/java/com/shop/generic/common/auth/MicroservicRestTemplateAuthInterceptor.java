@@ -51,11 +51,11 @@ public class MicroservicRestTemplateAuthInterceptor implements ClientHttpRequest
         log.info("Adding bearer token header");
         final String bearerToken = getBearerToken();
         request.getHeaders().add(BEARER_TOKEN, bearerToken);
-        log.info("Set bearer token header with encrypted value {}", bearerToken);
+        log.debug("Set bearer token header with encrypted value {}", bearerToken);
     }
 
     private String getBearerToken() {
-        log.info("Get bearer token");
+        log.debug("Get bearer token");
         return getBearerTokenForSession();
     }
 
@@ -72,13 +72,13 @@ public class MicroservicRestTemplateAuthInterceptor implements ClientHttpRequest
             serviceContext.setBearerToken(token);
             return token;
         } else {
-            log.info("Existing token is valid, re-using it");
+            log.debug("Existing token is valid, re-using it");
         }
         return encryptedToken;
     }
 
     /**
-     * Example of if if this service was an intermediate service e.g. it received a request from one
+     * Example of if this service was an intermediate service e.g. it received a request from one
      * service and then made a request another. Here it would take the bearer token from the first
      * request if it exists, and add it to the new request
      */

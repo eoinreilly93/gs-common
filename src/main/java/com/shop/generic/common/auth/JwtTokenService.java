@@ -35,7 +35,6 @@ public class JwtTokenService {
         permissions.setAbleToUpdateOrderStatus(canUpdateOrderStatus);
         log.info("Permissions object has been set in the jwt: {}", permissions);
         return generateJwtToken(permissions);
-
     }
 
     private String generateJwtToken(final Permissions permissions) {
@@ -68,9 +67,9 @@ public class JwtTokenService {
             final ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             final String json = objectMapper.writeValueAsString(permissions);
-            log.info("Serialized JSON: {}", json);
+            log.debug("Serialized JSON: {}", json);
             final String payload = compress(objectMapper.writeValueAsBytes(permissions));
-            log.info("Encoded (Base64): {} ", payload);
+            log.debug("Encoded (Base64): {} ", payload);
 
             claims.put("context", payload);
         } catch (final JsonProcessingException e) {
