@@ -87,16 +87,21 @@ public class RestTemplateUtil {
     private Exception getExceptionForClientError(final HttpClientErrorException e)
             throws ValidationException, JSONException {
 
-        final JSONObject jsonObject = new JSONObject(e.getResponseBodyAsString());
-        final String errorMessage = (String) jsonObject.get("error");
-        final HttpStatusCode statusCode = e.getStatusCode();
-        if (statusCode.is4xxClientError()) {
-            //throw error relating to user input, such as product not found
-            throw new ValidationException(errorMessage);
-        } else if (statusCode.is5xxServerError()) {
-            throw new ServiceException(errorMessage);
-        } else {
-            throw new ServiceException(errorMessage);
+        try {
+            final JSONObject jsonObject = new JSONObject(e.getResponseBodyAsString());
+            final String errorMessage = (String) jsonObject.get("error");
+            final HttpStatusCode statusCode = e.getStatusCode();
+            if (statusCode.is4xxClientError()) {
+                //throw error relating to user input, such as product not found
+                throw new ValidationException(errorMessage);
+            } else if (statusCode.is5xxServerError()) {
+                throw new ServiceException(errorMessage);
+            } else {
+                throw new ServiceException(errorMessage);
+            }
+        } catch (final JSONException e1) {
+            //If the is not a JSON error message, throw the original message so it isn't lost
+            throw new ServiceException(e.getMessage());
         }
     }
 }
