@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -37,6 +39,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "orders")
 public class Order {
 
@@ -81,5 +85,22 @@ public class Order {
     private List<OrderAudit> auditItems = new ArrayList<>();
 
     //TODO: Add additional fields such as last_updated, name, address etc.
+
+    /**
+     * Useful method to clone the entity, should we ever need to
+     */
+    public Order _clone() {
+        return Order.builder()
+                .id(this.id)
+                .orderId(this.orderId)
+                .price(this.price)
+                .productIds(this.productIds)
+                .status(this.status)
+                .city(this.city)
+                .creationDate(this.creationDate)
+                .lastUpdated(this.lastUpdated)
+                .auditItems(this.auditItems)
+                .build();
+    }
 
 }

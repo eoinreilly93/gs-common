@@ -11,7 +11,7 @@ public class MicroserviceAuthorisationService {
         return permissions.isAbleToUpdateOrderStatus();
     }
 
-    public Permissions getContext() {
+    private Permissions getContext() {
         return (Permissions) SecurityContextHolder.getContext().getAuthentication().getDetails();
     }
 }
